@@ -23,7 +23,6 @@ class MessageHistr(Base):
     id = Column(Integer, primary_key = True)
     user_id = Column(Integer)
     message_text = Column(Text)
-    message_by_bot = Column(Text)
     date_of_message = Column(DateTime, default = datetime.utcnow)
     
 
