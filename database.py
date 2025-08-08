@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column , Integer , String, Text, DateTime
+from sqlalchemy import create_engine, Column , Integer , String, Text, DateTime, BigInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime 
@@ -12,7 +12,7 @@ class User(Base):
     __tablename__ = 'Users'
 
     id = Column(Integer, primary_key = True)
-    telegram_id = Column(Integer, unique = True)
+    telegram_id = Column(BigInteger, unique = True)
     username = Column(String(50))
     first_name = Column(String(50))
     last_name = Column(String(50))
@@ -21,7 +21,7 @@ class MessageHistr(Base):
     __tablename__ = 'MsgHistory'
 
     id = Column(Integer, primary_key = True)
-    user_id = Column(Integer)
+    user_id = Column(BigInteger)
     message_text = Column(Text)
     date_of_message = Column(DateTime, default = datetime.utcnow)
     
