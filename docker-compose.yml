@@ -1,0 +1,24 @@
+
+
+services:
+  db: 
+    image: postgres:15
+    restart: always
+    environment:
+       POSTGRES_USER: "just_bot"
+       POSTGRES_PASSWORD: "just_password"
+       POSTGRES_DB: "just_database"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  bot:
+    build: .
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
+
