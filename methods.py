@@ -9,7 +9,7 @@ from gigachat import GigaChat
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 GIGACHAT_TOKEN = os.getenv("GIGACHAT_TOKEN")
-
+ADMIN_ID = os.getenv("ADMIN_ID")
 
 
 
@@ -65,7 +65,7 @@ async def sent_neuro_result(user_id , user_message) -> str:
     try:
          query = session.query(User).filter(User.user_id == user_id).first()
          
-         if (query is not None and query.responses >= 1) :
+         if (query is not None and query.responses >= 1 or user_id == ADMIN_ID) :
             
             query.responses -= 1
             session.commit()
