@@ -13,7 +13,7 @@ class User(Base):
     first_name = Column(String(50))
     last_name = Column(String(50))
     responses = Column(Integer, default = 20)
-
+    
 class MessageHistr(Base):
     __tablename__ = 'MsgHistory'
 

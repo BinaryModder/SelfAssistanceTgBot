@@ -41,7 +41,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) :
         await context.bot.send_chat_action(chat_id = chat_id,
                                        action = ChatAction.TYPING) # Работает с багом! (Продолжает "печатает даже после отправки разельтата")
         
-        neuro_reply = await sent_neuro_result(user_message = update.message.text)
+        neuro_reply = await sent_neuro_result(user_id = update.effective_user.id , user_message = update.message.text)
         
 
         if processing_message :

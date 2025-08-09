@@ -28,7 +28,8 @@ async def user_registration(user_id , username , first_name , last_name) :
                 user_id = user_id,
                 username = username,
                 first_name =first_name,
-                last_name =last_name or ""
+                last_name = last_name,
+                responses = 20
             )
             session.add(new_user_form)
             session.commit()
@@ -59,11 +60,29 @@ async def save_user_message(user_id , user_text) :
         
 
 
-async def sent_neuro_result(user_message) :
-    try:
+async def sent_neuro_result(user_id , user_message) -> str:
 
-         response = giga.chat(user_message)
-         return response.choices[0].message.content
+    try:
+         query = session.query(User).filter(User.user_id == user_id).first()
+         
+         if (query is not None and query.responses >= 1) :
+            
+            query.responses -= 1
+            session.commit()
+
+
+            response = giga.chat(user_message)
+            return response.choices[0].message.content
+            
+
+
+
+
+
+         else: return 'Ваш запас запросов исчерпан'
+
+
+
 
     except Exception as ex:
         print(ex)
