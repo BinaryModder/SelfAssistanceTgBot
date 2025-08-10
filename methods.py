@@ -65,14 +65,15 @@ async def sent_neuro_result(user_id , user_message) -> str:
     try:
          query = session.query(User).filter(User.user_id == user_id).first()
          
-         if (query is not None and query.responses >= 1 or user_id == ADMIN_ID) :
+         if (query is not None and query.responses >= 1) :
             
-            query.responses -= 1
-            session.commit()
+
+                query.responses -= 1
+                session.commit()
 
 
-            response = giga.chat(user_message)
-            return response.choices[0].message.content
+                response = giga.chat(user_message)
+                return response.choices[0].message.content
             
 
 
